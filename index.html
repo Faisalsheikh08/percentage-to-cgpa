@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CGPA ⇄ Percentage Converter</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #e0c3fc, #8ec5fc);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 40px 30px 20px;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-top: 1px solid rgba(255, 255, 255, 0.6);
+      border-left: 1px solid rgba(255, 255, 255, 0.6);
+      color: #333;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    h2 {
+      margin-bottom: 25px;
+      font-size: 24px;
+      color: #fff;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 12px;
+      border: none;
+      background: rgba(255, 255, 255, 0.8);
+      font-size: 16px;
+    }
+
+    input:focus {
+      outline: none;
+      box-shadow: 0 0 8px #007bff88;
+    }
+
+    button {
+      width: 100%;
+      background-color: #007bff;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .result {
+      margin-top: 20px;
+    }
+
+    .result-box {
+      margin: 10px auto;
+      display: inline-block;
+      padding: 12px 20px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #fff;
+      background: rgba(0, 0, 0, 0.25);
+      border-radius: 16px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    }
+
+.switch-link {
+  margin-top: 25px;
+  color: #0056b3;
+  cursor: pointer;
+  text-decoration: underline;
+  font-size: 15px;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.switch-link:hover {
+  color: #003f80;
+}
+
+    .hidden {
+      display: none;
+    }
+
+    .footer {
+      margin-top: 30px;
+      font-size: 13px;
+      color: black;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- Percentage to CGPA Section -->
+    <div id="percentageToCgpa">
+      <h2>Percentage ➜ CGPA</h2>
+      <input type="number" id="percentageInput" placeholder="Enter Percentage (0–100)" min="0" max="100" />
+      <button onclick="convertToCGPA()">Convert</button>
+      <div class="result" id="cgpaResult"></div>
+      <div class="switch-link" onclick="switchView('cgpaToPercentage')">Switch to CGPA ➜ Percentage</div>
+    </div>
+
+    <!-- CGPA to Percentage Section -->
+    <div id="cgpaToPercentage" class="hidden">
+      <h2>CGPA ➜ Percentage</h2>
+      <input type="number" id="cgpaInput" placeholder="Enter CGPA (0–10)" step="0.01" min="0" max="10" />
+      <button onclick="convertToPercentage()">Convert</button>
+      <div class="result" id="percentageResult"></div>
+      <div class="switch-link" onclick="switchView('percentageToCgpa')">Switch to Percentage ➜ CGPA</div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      Developed by <strong>FSS</strong> and <strong>Faiz</strong>
+    </div>
+
+  </div>
+
+  <script>
+    function convertToCGPA() {
+      const percentage = parseFloat(document.getElementById('percentageInput').value);
+      const result = document.getElementById('cgpaResult');
+
+      if (isNaN(percentage) || percentage < 0 || percentage > 100) {
+        result.innerHTML = `<div class="result-box" style="background:red;">Enter a valid percentage (0–100)</div>`;
+        return;
+      }
+
+      const cgpa = (percentage / 9.5).toFixed(2);
+      result.innerHTML = `<div class="result-box">Equivalent CGPA: ${cgpa}</div>`;
+    }
+
+    function convertToPercentage() {
+      const cgpa = parseFloat(document.getElementById('cgpaInput').value);
+      const result = document.getElementById('percentageResult');
+
+      if (isNaN(cgpa) || cgpa < 0 || cgpa > 10) {
+        result.innerHTML = `<div class="result-box" style="background:red;">Enter a valid CGPA (0–10)</div>`;
+        return;
+      }
+
+      const percentage = (cgpa * 9.5).toFixed(2);
+      result.innerHTML = `<div class="result-box">Equivalent Percentage: ${percentage}%</div>`;
+    }
+
+    function switchView(showId) {
+      document.getElementById('percentageToCgpa').classList.add('hidden');
+      document.getElementById('cgpaToPercentage').classList.add('hidden');
+      document.getElementById(showId).classList.remove('hidden');
+    }
+  </script>
+</body>
+</html>
