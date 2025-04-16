@@ -1,1 +1,1 @@
-# percentage-to-cgpa
+A simple, stylish web app that allows you to convert between CGPA and Percentage with ease. Designed with a modern glassmorphism UI and built using only HTML, CSS, and JavaScript — no external libraries required.
